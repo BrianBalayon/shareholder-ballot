@@ -1,6 +1,7 @@
-# shareholder-balloti
+# shareholder-ballot
 
 This is the CSE 426 project 1 by Brian Balayon and Hans Bas.
+
 
 ## Abstract
 
@@ -14,11 +15,27 @@ takes this idea and breaks it down into two actors: company and shareholders. Th
 the ultimate deciding factor of the weight of the shareholders’ votes and the issues they can
 vote upon, while the shareholders can allocate their votes.
 
+
 ## Idea Source
 
-https://www.investopedia.com/ask/answers/040315/what-can-shareholders-vote.asp
+[Investopedia](https://www.investopedia.com/ask/answers/040315/what-can-shareholders-vote.asp)
+
+## Use Case
+
+* Chairperson
+  * Next Phase
+  * Register Voters
+  * Set Timer
+  * Set Voting Mode
+  * Count Votes
+  * Clear
+* Shareholder
+  * Single Vote
+  * Allocate Votes by Fraction
+  * Allocate Votes by Number
+
 
 ## Notes
 
 * This idea was brought up to Bina Ramamurthy following the lecture on September 25th, 2019.
-* Use case diagram was updated, approved by Bina Ramamurthy, and submitted following the lecture October 2, 2019.
+* The use case diagram was updated, approved by Bina Ramamurthy, and submitted following the lecture on October 2, 2019.
