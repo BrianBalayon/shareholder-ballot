@@ -40,6 +40,7 @@ contract ShBallot {
     }
     
     // FUNCTIONS
+    //    onlyChair functions
      function changeState(Phase x) onlyChair public {
         require (x > state );
         state = x;
@@ -51,6 +52,7 @@ contract ShBallot {
        // voters[voter].voted = false;
     }
 
+    //    voter functions
     function vote(uint8 toProposal) public validPhase(Phase.Vote)  {
         Voter memory sender = voters[msg.sender];
         require (!sender.voted); 
@@ -60,6 +62,7 @@ contract ShBallot {
         proposals[toProposal].voteCount += sender.weight;
     }
 
+    //    truly public functions
     function reqWinner() public validPhase(Phase.Done) view returns (uint8 winningProposal) {
         uint256 winningVoteCount = 0;
         for (uint8 prop = 0; prop < proposals.length; prop++) 
