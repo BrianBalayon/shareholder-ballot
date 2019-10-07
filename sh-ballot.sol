@@ -6,29 +6,29 @@ contract ShBallot {
     struct Shareholder {
         uint numSharesOwned;
         bool registered;
-        uint numVotesSent;
     }
 
     struct Proposal {
-        uint voteCount;
+        uint256 voteCount;
     }
 
     address chairperson;
     mapping(address => Shareholder) shareholders;
-    uint numShareholders = 0;
+    uint numShareholders;
     Proposal[] proposals;
 
     enum Phase { Init, Regs, Vote, Done, Released }
     enum VoteMode { OnePerShare, OneVote, NotSet }
-
+    
     Phase public state;
-    VoteMode votingMode;
-
-    uint votingDeadline;
-    uint votingDuration;
-
+    uint public numChoices;
+    
+    VoteMode public votingMode;
+    uint public votingDeadline;
+    uint public votingDuration;
+    
     uint winner;
-    bool winnerSelected = false;
+    bool public winnerSelected;
 
     // MODIFIERS
     modifier validPhase(Phase reqPhase) {
@@ -61,6 +61,16 @@ contract ShBallot {
         _;
     }
     
+    modifier validProposal(uint num) {
+        require(num >= 0 && num < numChoices, "There not that many proposals.");
+        _;
+    }
+    
+    modifier canStillVote(address toCheck) {
+        require(shareholders[toCheck].numSharesOwned > 0, "You have used all of your votes");
+        _;
+    }
+    
     // CONSTRUCTOR
     constructor (uint8 numProposals)
         public
@@ -69,10 +79,12 @@ contract ShBallot {
         chairperson = msg.sender;
         proposals.length = numProposals;
         state = Phase.Regs;
-        state = Phase.Done;
         votingMode = VoteMode.NotSet;
         votingDeadline = 0;
         votingDuration = 0;
+        winnerSelected = false;
+        numChoices = numProposals;
+        numShareholders = 0;
     }
 
     //chairperson functions
@@ -85,7 +97,6 @@ contract ShBallot {
         require(numSharesOwned > 0, "A shareholder should have more than zero shares.");
         shareholders[shareholder].registered = true;
         shareholders[shareholder].numSharesOwned = numSharesOwned;
-        shareholders[shareholder].numVotesSent = 0;
         numShareholders += 1;
     }
     
@@ -97,12 +108,24 @@ contract ShBallot {
         votingMode = mode;
     }
     
-    function setVoteTimeline(uint timeWithUnit)
+    function setVoteTimeline(uint8 howLong, uint8 unit)
         public
         onlyChair
+        validPhase(Phase.Regs)
     {
-        require(timeWithUnit > 0, "Alpha must be more than zero.");
-        votingDuration = timeWithUnit;
+        require(howLong > 0, "Alpha must be more than zero.");
+        require(unit>=1 && unit<=5, "Cannot have `NotSet` as a time unit. 1: weeks, 2: days, 3: hours, 4: minutes, 5: seconds");
+        if (unit == 1) {
+            votingDuration = howLong * 1 weeks;
+        } else if (unit == 2) {
+            votingDuration = howLong * 1 days;
+        } else if (unit == 3) {
+            votingDuration = howLong * 1 hours;
+        } else if (unit == 4) {
+            votingDuration = howLong * 1 minutes;
+        } else if (unit == 5) {
+            votingDuration = howLong * 1 seconds;
+        }
     }
     
     function beginVoting()
@@ -154,17 +177,13 @@ contract ShBallot {
         beforeDeadline
         shareholderRegistered
         validPhase(Phase.Vote)
+        validProposal(toProposal)
         validVoteMode(VoteMode.OneVote)
+        canStillVote(msg.sender)
     {
         Shareholder storage shareholder = shareholders[msg.sender];
-        require(toProposal < proposals.length);
-        if (votingMode == VoteMode.OnePerShare) {
-            require(shareholder.numVotesSent < shareholder.numSharesOwned, "Reached maximum number of votes.");
-        } else if (votingMode == VoteMode.OneVote) {
-            require(shareholder.numVotesSent < 1, "Reached maximum number of votes.");
-        }
-        shareholder.numVotesSent += 1;
         proposals[toProposal].voteCount += 1;
+        shareholder.numSharesOwned = 0; 
     }
      
     function allocateVotesByNumber(uint8 toProposal, uint numVotes)
@@ -172,30 +191,32 @@ contract ShBallot {
         beforeDeadline
         shareholderRegistered
         validPhase(Phase.Vote)
+        validProposal(toProposal)
         validVoteMode(VoteMode.OnePerShare)
+        canStillVote(msg.sender)
     {
         Shareholder storage shareholder = shareholders[msg.sender];
-        require(toProposal < proposals.length);
-        require(shareholder.numVotesSent < shareholder.numSharesOwned, "Reached maximum number of votes.");
-        require(shareholder.numVotesSent + numVotes <= shareholder.numSharesOwned, "Too many votes attempted to be sent.");
-        shareholder.numVotesSent += numVotes;
+        require(shareholder.numSharesOwned + numVotes >= 0, "You sent more votes than you have left.");
         proposals[toProposal].voteCount += numVotes;
+        shareholder.numSharesOwned -= numVotes;
     }
      
-    function allocateVotesByPercentage(uint8 toProposal, uint percentage)
+    function allocateVotesByPercentage(uint8 toProposal, uint8 percentage)
         public
         beforeDeadline
         shareholderRegistered
         validPhase(Phase.Vote)
+        validProposal(toProposal)
         validVoteMode(VoteMode.OnePerShare)
+        canStillVote(msg.sender)
     {
         require(percentage > 0 && percentage <= 100, "Percentage must be a valid percentage between 1 and 100.");
         Shareholder storage shareholder = shareholders[msg.sender];
-        require(shareholder.numVotesSent < shareholder.numSharesOwned, "Reached maximum number of votes.");
-        uint numVotes = ((shareholder.numSharesOwned - shareholder.numVotesSent) * percentage) / 100;
+        uint numVotes = (shareholder.numSharesOwned * percentage) / 100;
         require(numVotes > 0, "Percentage too small. No votes being sent out.");
-        shareholder.numVotesSent += numVotes;
+        require(shareholder.numSharesOwned + numVotes >= 0, "You sent more votes / larger percentage than you have left.");
         proposals[toProposal].voteCount += numVotes;
+        shareholder.numSharesOwned -= numVotes;
     }
     
     function getNumRemainingVotes()
@@ -204,14 +225,17 @@ contract ShBallot {
         shareholderRegistered
         returns(uint)
     {
-        require(votingMode != VoteMode.NotSet);
         Shareholder memory shareholder = shareholders[msg.sender];
-        if (votingMode == VoteMode.OnePerShare) {
-            return shareholder.numSharesOwned - shareholder.numVotesSent;
-        } else if (votingMode == VoteMode.OneVote) {
-            return 1 - shareholder.numVotesSent;
+        if (shareholder.numSharesOwned == 0) {
+            return 0;
+        } else {
+            if (votingMode == VoteMode.OneVote) {
+                return 1;
+            }
+            return shareholder.numSharesOwned;
         }
     }
+
     
     function getWinner()
         public
@@ -221,5 +245,4 @@ contract ShBallot {
     {
         return winner;
     }
-
 }
