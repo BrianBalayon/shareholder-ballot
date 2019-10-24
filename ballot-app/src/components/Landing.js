@@ -1,5 +1,7 @@
 import React from 'react';
 import Chairperson from "./Chairperson";
+import Shareholder from "./Shareholder";
+import PublicInfo from "./PublicInfo";
 
 class LandingPage extends React.Component {
     constructor(props) {
@@ -13,6 +15,8 @@ class LandingPage extends React.Component {
         return(
             <div>
                 <Chairperson />
+                <Shareholder />
+                <PublicInfo />
             </div>
         );
     }
