@@ -1,7 +1,7 @@
+import InputField from "./InputField";
 import React from 'react';
-import Chairperson from "./chairperson";
 
-class LandingPage extends React.Component {
+class Chairperson extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +12,13 @@ class LandingPage extends React.Component {
     render() {
         return(
             <div>
-                <Chairperson />
+                <InputField
+                    calls="Yo"
+                    units="Yo"
+                />
             </div>
         );
     }
 }
 
-export default LandingPage;
+export default Chairperson;
