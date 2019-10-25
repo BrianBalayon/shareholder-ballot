@@ -34,9 +34,18 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
+  // See <http://truffleframework.com/docs/advanced/configuration>
+  // to customize your Truffle configuration for the RPC port
   networks: {
-    // Useful for testing. The `development` name is special - truffle uses it by default
+    // From Oct 16, 2019 slides:
+    development: {
+      host: "localhost",
+      port: 7545,
+      network_id: "5777"
+    }
+
+
+      // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
