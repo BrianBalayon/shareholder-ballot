@@ -1,6 +1,7 @@
 pragma solidity ^0.5.2;
 
 contract ShBallot {
+      string public myString = "Hello World";
 
     // DATA STRUCTURES
     struct Shareholder {
@@ -235,7 +236,6 @@ contract ShBallot {
             return shareholder.numSharesOwned;
         }
     }
-
     
     function getWinner()
         public

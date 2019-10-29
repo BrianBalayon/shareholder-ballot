@@ -1,21 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { Drizzle, generateStore } from "drizzle";
+import ShBallot from "./contracts/ShBallot.json";
 
-var express = require('express');
-var app = express();
-app.use(express.static('src'));
-app.use(express.static('../ballot-contract/build/contracts'));
-app.get('/', function (req, res) {
-    res.render('index.html');
-});
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
+const options = {
+  contracts: [ShBallot],
+  web3: { fallback: { type: "ws", url: "ws://127.0.0.1:7545" } }
+};
+const drizzleStore = generateStore(options);
+const drizzle = new Drizzle(options, drizzleStore);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App drizzle={drizzle} />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
