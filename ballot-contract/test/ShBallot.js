@@ -1,5 +1,9 @@
 const ShBallot = artifacts.require("../contracts/ShBallot.sol");
 
+const sleep = numSeconds => {
+  return new Promise(resolve => setTimeout(resolve, numSeconds * 1000));
+};
+
 contract("ShBallot", accounts => {
   let shBallot;
   let chairperson = accounts[0];
@@ -12,24 +16,28 @@ contract("ShBallot", accounts => {
     shBallot = await ShBallot.new(chairperson);
   });
 
-  it("Should be in Phase.Regs (1)", async () => {
+  it("Should be in Phase.Regs (1) upon deploying the smart contract", async () => {
     // Get state from public variable getter
     const storedPhase = await shBallot.state.call();
-
     assert.equal(storedPhase, 1, "Incorrect phase!");
   });
 
   it("Should be able to have chairperson register other accounts and they can access the correct number of votes", async () => {
     await shBallot.registerShareholder(voter1, 10, { from: chairperson });
-
     const numRemainingVotes = await shBallot.getNumRemainingVotes({
       from: voter1
     });
-
     assert.equal(numRemainingVotes, 10, "Incorrect number of votes!");
   });
 
-  it("Should catch errors when a non-registered voter tries to access their number of votes", async () => {
+  it("Should not let a voter begin voting -- only chairperson can begin voting", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.setVotingMode(1, { from: chairperson });
+    await shBallot.setVoteTimeline(10, 2, { from: chairperson });
+    await tryCatch(shBallot.beginVoting({ from: voter1 }), errTypes.revert);
+  });
+
+  it("Should not let a non-registered voter tries to access their number of votes", async () => {
     await tryCatch(
       shBallot.getNumRemainingVotes({ from: voter2 }),
       errTypes.revert
@@ -39,9 +47,9 @@ contract("ShBallot", accounts => {
   it("Should be in Phase.Vote (2)", async () => {
     await shBallot.registerShareholder(voter1, 10, { from: chairperson });
     await shBallot.registerShareholder(voter2, 10, { from: chairperson });
-    await shBallot.setVotingMode(1);
-    await shBallot.setVoteTimeline(10, 2);
-    await shBallot.beginVoting();
+    await shBallot.setVotingMode(1, { from: chairperson });
+    await shBallot.setVoteTimeline(10, 2, { from: chairperson });
+    await shBallot.beginVoting({ from: chairperson });
     const storedPhase = await shBallot.state.call();
     assert.equal(storedPhase, 2, "Incorrect phase!");
   });
@@ -54,6 +62,62 @@ contract("ShBallot", accounts => {
       from: voter1
     });
     assert.equal(numRemainingVotes, 1, "Incorrect number of votes!");
+  });
+
+  it("Should not let a voter allocate votes by number if in VoteMode.OneVote", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(1);
+    await shBallot.setVoteTimeline(10, 2);
+    await shBallot.beginVoting({ from: chairperson });
+    await tryCatch(
+      shBallot.allocateVotesByNumber(0, 5, { from: voter1 }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let a voter allocate votes by percentage if in VoteMode.OneVote", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(1);
+    await shBallot.setVoteTimeline(10, 2);
+    await shBallot.beginVoting({ from: chairperson });
+    await tryCatch(
+      shBallot.allocateVotesByPercentage(0, 50, { from: voter1 }),
+      errTypes.revert
+    );
+  });
+
+  it("Should have the correct number of votes after calling allocateVotesByPercentage", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(0);
+    await shBallot.setVoteTimeline(10, 2);
+    await shBallot.beginVoting({ from: chairperson });
+    await shBallot.allocateVotesByPercentage(0, 50, { from: voter1 });
+    const numRemainingVotes1 = await shBallot.getNumRemainingVotes({
+      from: voter1
+    });
+    assert.equal(numRemainingVotes1, 5, "Incorrect number of votes!");
+
+    await shBallot.allocateVotesByPercentage(1, 60, { from: voter2 });
+    const numRemainingVotes2 = await shBallot.getNumRemainingVotes({
+      from: voter2
+    });
+    assert.equal(numRemainingVotes2, 4, "Incorrect number of votes!");
+  });
+
+  it("Should not let a voter see the winner early", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(0);
+    await shBallot.setVoteTimeline(10, 2);
+    await shBallot.beginVoting({ from: chairperson });
+    await shBallot.allocateVotesByNumber(0, 5, { from: voter1 });
+    await shBallot.allocateVotesByNumber(1, 6, { from: voter2 });
+    await shBallot.endVoting({ from: chairperson });
+    await shBallot.countVotes({ from: chairperson });
+    await tryCatch(shBallot.getWinner({ from: voter1 }), errTypes.revert);
   });
 
   it("Should have the correct proposal as winner", async () => {
@@ -69,5 +133,18 @@ contract("ShBallot", accounts => {
     await shBallot.releaseWinner({ from: chairperson });
     const winner = await shBallot.getWinner({ from: voter1 });
     assert.equal(winner, 1, "Incorrect winner!");
+  });
+
+  it("Should not let people vote after the deadline has passed", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(0, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await shBallot.beginVoting({ from: chairperson });
+    await sleep(3);
+    await tryCatch(
+      shBallot.allocateVotesByNumber(0, 5, { from: voter1 }),
+      errTypes.revert
+    );
   });
 });
