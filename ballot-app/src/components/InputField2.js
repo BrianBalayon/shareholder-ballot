@@ -16,7 +16,7 @@ class InputField2 extends React.Component {
             <div>
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
-                        <Button variant="outline-secondary">{this.calls}</Button>
+                        <Button variant="outline-info">{this.calls}</Button>
                     </InputGroup.Prepend>
                     <FormControl
                         aria-describedby="basic-addon1"

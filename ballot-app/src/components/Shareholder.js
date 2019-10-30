@@ -1,7 +1,6 @@
 import InputField from "./InputField";
 import InputField2 from "./InputField2";
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import React from 'react';
 
 class Shareholder extends React.Component {
@@ -30,8 +29,8 @@ class Shareholder extends React.Component {
                     calls="Single Vote"
                     units="proposal: uint"
                     />
-                <div className="btn-group justify-content-between">
-                    <Button variant="outline-secondary">Get Remaining Votes</Button>
+                <div className="btn-group container-fluid">
+                    <Button variant="outline-primary">Get Remaining Votes</Button>
                 </div>
             </div>
         );

@@ -1,7 +1,6 @@
 import InputField from "./InputField";
 import InputField2 from "./InputField2";
 import Button from 'react-bootstrap/Button'
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 import React from 'react';
 
 class Chairperson extends React.Component {
@@ -30,11 +29,11 @@ class Chairperson extends React.Component {
                     units="time unit: uint"
                     units2="duration: uint"
                     />
-                <div className="btn-group justify-content-between">
-                    <Button variant="outline-secondary">Begin Voting</Button>
-                    <Button variant="outline-secondary">End Voting</Button>
-                    <Button variant="outline-secondary">Count Votes</Button>
-                    <Button variant="outline-secondary">Release Winner</Button>
+                <div className="btn-group container-fluid">
+                    <Button variant="outline-primary">Begin Voting</Button>
+                    <Button variant="outline-primary">End Voting</Button>
+                    <Button variant="outline-primary">Count Votes</Button>
+                    <Button variant="outline-primary">Release Winner</Button>
                 </div>
             </div>
         );

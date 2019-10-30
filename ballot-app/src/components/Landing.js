@@ -13,7 +13,7 @@ class LandingPage extends React.Component {
 
     render() {
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <h1> SH-BALLOT </h1>
                 <div className="row">
                     <div className="col">
@@ -22,8 +22,6 @@ class LandingPage extends React.Component {
                     <div className="col">
                         <Shareholder />
                     </div>
-                </div>
-                <div className="row">
                     <div className="col">
                         <PublicInfo />
                     </div>
