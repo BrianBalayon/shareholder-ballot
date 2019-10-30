@@ -135,7 +135,7 @@ contract("ShBallot", accounts => {
     assert.equal(winner, 1, "Incorrect winner!");
   });
 
-  it("Should not let people vote after the deadline has passed", async () => {
+  it("Should not let voters vote after the deadline has passed", async () => {
     await shBallot.registerShareholder(voter1, 10, { from: chairperson });
     await shBallot.registerShareholder(voter2, 10, { from: chairperson });
     await shBallot.setVotingMode(0, { from: chairperson });
@@ -144,6 +144,72 @@ contract("ShBallot", accounts => {
     await sleep(3);
     await tryCatch(
       shBallot.allocateVotesByNumber(0, 5, { from: voter1 }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let voters vote if not in Phase.Vote", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(0, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await shBallot.beginVoting({ from: chairperson });
+    await shBallot.allocateVotesByNumber(0, 5, { from: voter1 });
+    await shBallot.allocateVotesByNumber(1, 6, { from: voter2 });
+    await shBallot.endVoting({ from: chairperson });
+    await tryCatch(
+      shBallot.allocateVotesByNumber(0, 5, { from: voter1 }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let voters allocate more votes than they have", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(0, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await shBallot.beginVoting({ from: chairperson });
+    await tryCatch(
+      shBallot.allocateVotesByNumber(0, 15, { from: voter1 }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let voters vote more than once for VoteMode.OneVote", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(1, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await shBallot.beginVoting({ from: chairperson });
+    await shBallot.singleVote(0, { from: voter1 });
+    await tryCatch(shBallot.singleVote(0, { from: voter1 }), errTypes.revert);
+  });
+
+  it("Should not let chairperson start voting without anyone registered", async () => {
+    await shBallot.setVotingMode(1, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await tryCatch(
+      shBallot.beginVoting({ from: chairperson }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let chairperson start voting without setting voting timeline", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVotingMode(1, { from: chairperson });
+    await tryCatch(
+      shBallot.beginVoting({ from: chairperson }),
+      errTypes.revert
+    );
+  });
+
+  it("Should not let chairperson start voting without setting voting mode", async () => {
+    await shBallot.registerShareholder(voter1, 10, { from: chairperson });
+    await shBallot.registerShareholder(voter2, 10, { from: chairperson });
+    await shBallot.setVoteTimeline(1, 5, { from: chairperson });
+    await tryCatch(
+      shBallot.beginVoting({ from: chairperson }),
       errTypes.revert
     );
   });

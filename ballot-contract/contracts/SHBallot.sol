@@ -1,8 +1,6 @@
 pragma solidity ^0.5.2;
 
 contract ShBallot {
-      string public myString = "Hello World";
-
     // DATA STRUCTURES
     struct Shareholder {
         uint numSharesOwned;
@@ -20,25 +18,25 @@ contract ShBallot {
 
     enum Phase { Init, Regs, Vote, Done, Released }
     enum VoteMode { OnePerShare, OneVote, NotSet }
-    
+
     Phase public state;
     uint public numChoices;
-    
+
     VoteMode public votingMode;
     uint public votingDeadline;
     uint public votingDuration;
-    
+
     uint winner;
     bool public winnerSelected;
 
     // MODIFIERS
     modifier validPhase(Phase reqPhase) {
-        require(state == reqPhase);
+        require(state == reqPhase, "Invalid phase");
         _;
     }
 
     modifier validVoteMode(VoteMode mode) {
-        require(votingMode == mode, "You are voting in a different voting mode. Please use another voting function.");
+        require(votingMode == mode, "You are voting in a different voting mode.");
         _;
     }
 
@@ -61,17 +59,17 @@ contract ShBallot {
         require(now <= votingDeadline, "Voting deadline has passed!");
         _;
     }
-    
+
     modifier validProposal(uint num) {
         require(num >= 0 && num < numChoices, "There not that many proposals.");
         _;
     }
-    
+
     modifier canStillVote(address toCheck) {
         require(shareholders[toCheck].numSharesOwned > 0, "You have used all of your votes");
         _;
     }
-    
+
     // CONSTRUCTOR
     constructor (uint8 numProposals)
         public
@@ -100,7 +98,7 @@ contract ShBallot {
         shareholders[shareholder].numSharesOwned = numSharesOwned;
         numShareholders += 1;
     }
-    
+
     function setVotingMode(VoteMode mode)
         public
         onlyChair
@@ -108,7 +106,7 @@ contract ShBallot {
         require(mode != VoteMode.NotSet, "Cannot set voting mode to `NotSet`.");
         votingMode = mode;
     }
-    
+
     function setVoteTimeline(uint8 howLong, uint8 unit)
         public
         onlyChair
@@ -128,7 +126,7 @@ contract ShBallot {
             votingDuration = howLong * 1 seconds;
         }
     }
-    
+
     function beginVoting()
         public
         onlyChair
@@ -140,7 +138,7 @@ contract ShBallot {
         votingDeadline = now + votingDuration;
         state = Phase.Vote;
     }
-    
+
     function endVoting()
         public
         onlyChair
@@ -148,7 +146,7 @@ contract ShBallot {
     {
         state = Phase.Done;
     }
-    
+
     function countVotes()
         public
         onlyChair
@@ -162,7 +160,7 @@ contract ShBallot {
             }
         winnerSelected = true;
     }
-    
+
     function releaseWinner()
         public
         onlyChair
@@ -171,7 +169,7 @@ contract ShBallot {
         require(winnerSelected, "Winner has not been selected yet. Run `countVotes()`.");
         state = Phase.Released;
     }
-    
+
     //shareholder functions
     function singleVote(uint8 toProposal)
         public
@@ -184,9 +182,9 @@ contract ShBallot {
     {
         Shareholder storage shareholder = shareholders[msg.sender];
         proposals[toProposal].voteCount += 1;
-        shareholder.numSharesOwned = 0; 
+        shareholder.numSharesOwned = 0;
     }
-     
+
     function allocateVotesByNumber(uint8 toProposal, uint numVotes)
         public
         beforeDeadline
@@ -197,11 +195,11 @@ contract ShBallot {
         canStillVote(msg.sender)
     {
         Shareholder storage shareholder = shareholders[msg.sender];
-        require(shareholder.numSharesOwned + numVotes >= 0, "You sent more votes than you have left.");
+        require(numVotes <= shareholder.numSharesOwned, "You sent more votes than you have left.");
         proposals[toProposal].voteCount += numVotes;
         shareholder.numSharesOwned -= numVotes;
     }
-     
+
     function allocateVotesByPercentage(uint8 toProposal, uint8 percentage)
         public
         beforeDeadline
@@ -219,7 +217,7 @@ contract ShBallot {
         proposals[toProposal].voteCount += numVotes;
         shareholder.numSharesOwned -= numVotes;
     }
-    
+
     function getNumRemainingVotes()
         public
         view
@@ -236,7 +234,7 @@ contract ShBallot {
             return shareholder.numSharesOwned;
         }
     }
-    
+
     function getWinner()
         public
         view
