@@ -13,10 +13,21 @@ class LandingPage extends React.Component {
 
     render() {
         return(
-            <div>
-                <Chairperson />
-                <Shareholder />
-                <PublicInfo />
+            <div className="container">
+                <h1> SH-BALLOT </h1>
+                <div className="row">
+                    <div className="col">
+                        <Chairperson />
+                    </div>
+                    <div className="col">
+                        <Shareholder />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <PublicInfo />
+                    </div>
+                </div>
             </div>
         );
     }

@@ -30,9 +30,9 @@ class Shareholder extends React.Component {
                     calls="Single Vote"
                     units="proposal: uint"
                     />
-                <ButtonToolbar>
+                <div className="btn-group justify-content-between">
                     <Button variant="outline-secondary">Get Remaining Votes</Button>
-                </ButtonToolbar>
+                </div>
             </div>
         );
     }

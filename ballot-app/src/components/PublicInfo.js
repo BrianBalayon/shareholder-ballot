@@ -14,7 +14,7 @@ class PublicInfo extends React.Component {
         return(
             <div>
                 <h2> Public Information </h2>
-                <ButtonToolbar>
+                <div className="btn-group justify-content-between">
                     <Button variant="outline-secondary">State</Button>
                     <Button variant="outline-secondary">Number of Choices</Button>
                     <Button variant="outline-secondary">Voting Mode</Button>
@@ -22,7 +22,7 @@ class PublicInfo extends React.Component {
                     <Button variant="outline-secondary">Voting Duration</Button>
                     <Button variant="outline-secondary">Winner Selected</Button>
                     <Button variant="outline-secondary">Winner</Button>
-                </ButtonToolbar>
+                </div>
             </div>
         );
     }

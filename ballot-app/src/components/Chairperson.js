@@ -30,12 +30,12 @@ class Chairperson extends React.Component {
                     units="time unit: uint"
                     units2="duration: uint"
                     />
-                <ButtonToolbar>
+                <div className="btn-group justify-content-between">
                     <Button variant="outline-secondary">Begin Voting</Button>
                     <Button variant="outline-secondary">End Voting</Button>
                     <Button variant="outline-secondary">Count Votes</Button>
                     <Button variant="outline-secondary">Release Winner</Button>
-                </ButtonToolbar>
+                </div>
             </div>
         );
     }
