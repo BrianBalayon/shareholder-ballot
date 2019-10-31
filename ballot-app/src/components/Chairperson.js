@@ -30,8 +30,8 @@ class Chairperson extends React.Component {
                     units2="duration: uint"
                     />
                 <div className="btn-group container-fluid">
-                    <Button variant="outline-primary">Begin Voting</Button>
-                    <Button variant="outline-primary">End Voting</Button>
+                    <Button variant="outline-success">Begin Voting</Button>
+                    <Button variant="outline-danger">End Voting</Button>
                     <Button variant="outline-primary">Count Votes</Button>
                     <Button variant="outline-primary">Release Winner</Button>
                 </div>
