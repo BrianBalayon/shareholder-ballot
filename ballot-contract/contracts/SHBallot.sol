@@ -243,4 +243,12 @@ contract ShBallot {
     {
         return winner;
     }
+
+    function isChairperson()
+        public
+        view
+        returns (bool)
+    {
+        return msg.sender == chairperson;
+    }
 }
