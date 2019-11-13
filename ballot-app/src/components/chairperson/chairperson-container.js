@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ChairpersonView from "./chairperson-view";
 import { VALUE } from "../utils/constants/keys";
-import { IS_CHAIRPERSON } from "../utils/constants/methods";
+import * as Method from "../utils/constants/methods";
 import { cacheCallMethod, cacheSendMethod } from "../utils/helper-functions";
 
 export default class ChairpersonContainer extends Component {
@@ -17,7 +17,11 @@ export default class ChairpersonContainer extends Component {
 
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
-    const dataKey = cacheCallMethod(drizzle, drizzleState, IS_CHAIRPERSON);
+    const dataKey = cacheCallMethod(
+      drizzle,
+      drizzleState,
+      Method.IS_CHAIRPERSON
+    );
     this.setState({ dataKey });
   }
 
@@ -37,62 +41,35 @@ export default class ChairpersonContainer extends Component {
   };
 
   registerShareholder = () => {
-    const { drizzle, drizzleState } = this.props;
     const { address, sharesOwned } = this.state;
-    const stackId = cacheSendMethod(
-      drizzle,
-      drizzleState,
-      "registerShareholder",
+    this.cacheSendMethodHelper(
+      Method.REGISTER_SHAREHOLDER,
       address,
       sharesOwned
     );
-    this.setState({ stackId });
   };
 
   setVotingMode = () => {
-    const { drizzle, drizzleState } = this.props;
     const { votingMode } = this.state;
-    const stackId = cacheSendMethod(
-      drizzle,
-      drizzleState,
-      "setVotingMode",
-      votingMode
-    );
-    this.setState({ stackId });
+    this.cacheSendMethodHelper(Method.SET_VOTING_MODE, votingMode);
   };
 
   setVotingTimeline = () => {
-    const { drizzle, drizzleState } = this.props;
     const { duration, timeUnit } = this.state;
-    const stackId = cacheSendMethod(
-      drizzle,
-      drizzleState,
-      "setVoteTimeline",
-      duration,
-      timeUnit
-    );
-    this.setState({ stackId });
+    this.cacheSendMethodHelper(Method.SET_VOTE_TIMELINE, duration, timeUnit);
   };
 
-  beginVoting = () => {
-    this.cacheSendMethodHelper("beginVoting");
-  };
+  beginVoting = () => this.cacheSendMethodHelper(Method.BEGIN_VOTING);
 
-  endVoting = () => {
-    this.cacheSendMethodHelper("endVoting");
-  };
+  endVoting = () => this.cacheSendMethodHelper(Method.END_VOTING);
 
-  countVotes = () => {
-    this.cacheSendMethodHelper("countVotes");
-  };
+  countVotes = () => this.cacheSendMethodHelper(Method.COUNT_VOTES);
 
-  releaseWinner = () => {
-    this.cacheSendMethodHelper("releaseWinner");
-  };
+  releaseWinner = () => this.cacheSendMethodHelper(Method.RELEASE_WINNER);
 
   render() {
-    const { dataKey, stackId } = this.state;
-    const { drizzleState } = this.props;
+    const { dataKey } = this.state;
+    const { drizzle, drizzleState } = this.props;
     const { ShBallot } = drizzleState.contracts;
     const data = ShBallot.isChairperson[dataKey];
     let isChairperson = false;
@@ -102,17 +79,18 @@ export default class ChairpersonContainer extends Component {
     return (
       isChairperson && (
         <ChairpersonView
+          drizzle={drizzle}
           drizzleState={drizzleState}
+          isChairperson={isChairperson}
           onChangeHandler={this.textInputChangeHandler}
           onClickBeginVoting={this.beginVoting}
+          onClickDropdownItem={this.dropdownItemClickHandler}
           onClickEndVoting={this.endVoting}
           onClickCountVotes={this.countVotes}
           onClickReleaseWinner={this.releaseWinner}
-          onDropdownItemClick={this.dropdownItemClickHandler}
-          onRegisterShareholderButtonClick={this.registerShareholder}
-          onSetVotingModeButtonClick={this.setVotingMode}
-          onSetVotingTimelineButtonClick={this.setVotingTimeline}
-          stackId={stackId}
+          onClickRegisterShareholder={this.registerShareholder}
+          onClickSetVotingMode={this.setVotingMode}
+          onClickSetVotingTimeline={this.setVotingTimeline}
           {...this.state}
         />
       )

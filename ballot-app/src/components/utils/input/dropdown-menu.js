@@ -5,16 +5,16 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 const DropdownMenu = ({
   dropdownItemInfo,
   keyName,
-  onDropdownItemClick,
+  onClickDropdownItem,
   title
 }) => {
   return (
     <DropdownButton
       title={title}
-      onSelect={e => onDropdownItemClick(keyName, e)}
+      onSelect={e => onClickDropdownItem(keyName, e)}
     >
-      {dropdownItemInfo.map(itemInfo => (
-        <Dropdown.Item eventKey={itemInfo.eventKey}>
+      {dropdownItemInfo.map((itemInfo, index) => (
+        <Dropdown.Item key={`${keyName}-${index}`} eventKey={itemInfo.eventKey}>
           {itemInfo.itemText}
         </Dropdown.Item>
       ))}

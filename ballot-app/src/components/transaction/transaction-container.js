@@ -1,6 +1,6 @@
 import React from "react";
-import { NOT_AVAILABLE, STATUS_TO_VARIANT_MAP } from "./transaction-constants";
 import TransactionView from "./transaction-view";
+import { NOT_AVAILABLE, STATUS_TO_VARIANT_MAP } from "./util/constants";
 
 const TransactionContainer = ({ drizzleState, stackId }) => {
   if (!drizzleState) {

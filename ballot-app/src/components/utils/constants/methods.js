@@ -1,1 +1,16 @@
+export const ALLOCATE_VOTES_BY_NUMBER = "allocateVotesByNumber";
+export const ALLOCATE_VOTES_BY_PERCENTAGE = "allocateVotesByPercentage";
+export const BEGIN_VOTING = "beginVoting";
+export const COUNT_VOTES = "countVotes";
+export const END_VOTING = "endVoting";
+export const GET_NUM_REMAINING_VOTES = "getNumRemainingVotes";
+export const GET_WINNER = "getWinner";
 export const IS_CHAIRPERSON = "isChairperson";
+export const NUM_CHOICES = "numChoices";
+export const REGISTER_SHAREHOLDER = "registerShareholder";
+export const RELEASE_WINNER = "releaseWinner";
+export const SET_VOTE_TIMELINE = "setVoteTimeline";
+export const SET_VOTING_MODE = "setVotingMode";
+export const SINGLE_VOTE = "singleVote";
+export const VOTING_DEADLINE = "votingDeadline";
+export const VOTING_MODE = "votingMode";

@@ -3,14 +3,10 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
-import {
-  ADDRESS,
-  NUMBER_OF_SHARES_PLACEHOLDER,
-  REGISTER_SHAREHOLDER_BUTTON_TEXT,
-  SHARED_OWNED
-} from "./chairperson-constants";
-import SubmitButton from "../utils/input/submit-button";
-import TextBox from "../utils/input/text-box";
+import { ButtonText, Key } from "./constants";
+import SubmitButton from "../../utils/input/submit-button";
+import TextBox from "../../utils/input/text-box";
+import { Placeholder } from "./constants";
 
 const RegisterShareholderInput = ({
   address,
@@ -27,19 +23,19 @@ const RegisterShareholderInput = ({
             <InputGroup.Prepend>
               <SubmitButton
                 onClickHandler={onClickHandler}
-                text={REGISTER_SHAREHOLDER_BUTTON_TEXT}
+                text={ButtonText.REGISTER_SHAREHOLDER}
               />
             </InputGroup.Prepend>
             <TextBox
-              keyName={ADDRESS}
+              keyName={Key.ADDRESS}
               onChangeHandler={onChangeHandler}
-              placeholder={ADDRESS}
+              placeholder={Key.ADDRESS}
               textValue={address}
             />
             <TextBox
-              keyName={SHARED_OWNED}
+              keyName={Key.SHARES_OWNED}
               onChangeHandler={onChangeHandler}
-              placeholder={NUMBER_OF_SHARES_PLACEHOLDER}
+              placeholder={Placeholder.SHARES_OWNED}
               textValue={sharesOwned}
             />
           </InputGroup>

@@ -17,10 +17,18 @@ const VotingModeButtonToolbar = ({
         <Col></Col>
         <Col xs={12}>
           <ButtonToolbar>
-            <Button onClick={onClickBeginVoting}>Begin Voting</Button>
-            <Button onClick={onClickEndVoting}>End Voting</Button>
-            <Button onClick={onClickCountVotes}>Count Votes</Button>
-            <Button onClick={onClickReleaseWinner}>Release Winner</Button>
+            <div className="col-3">
+              <Button onClick={onClickBeginVoting}>Begin Voting</Button>
+            </div>
+            <div className="col-3">
+              <Button onClick={onClickEndVoting}>End Voting</Button>
+            </div>
+            <div className="col-3">
+              <Button onClick={onClickCountVotes}>Count Votes</Button>
+            </div>
+            <div className="col-3">
+              <Button onClick={onClickReleaseWinner}>Release Winner</Button>
+            </div>
           </ButtonToolbar>
         </Col>
         <Col></Col>

@@ -3,6 +3,9 @@ import "./app.css";
 import ChairpersonContainer from "../chairperson/chairperson-container";
 import Loading from "../loading";
 import PhaseContainer from "../phase/phase-container";
+import Proposals from "../proposals";
+import ShareholderContainer from "../shareholder/shareholder-container";
+import WinnerContainer from "../winner/winner-container";
 
 export default class App extends Component {
   state = {
@@ -34,7 +37,10 @@ export default class App extends Component {
       <div className="App">
         <h1>SHAREHOLDER BALLOT</h1>
         <PhaseContainer drizzle={drizzle} drizzleState={drizzleState} />
+        <WinnerContainer drizzle={drizzle} drizzleState={drizzleState} />
         <ChairpersonContainer drizzle={drizzle} drizzleState={drizzleState} />
+        <ShareholderContainer drizzle={drizzle} drizzleState={drizzleState} />
+        <Proposals />
       </div>
     );
   }

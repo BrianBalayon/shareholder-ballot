@@ -1,23 +1,26 @@
 import React from "react";
-import RegisterShareholder from "./register-shareholder";
-import SetVotingMode from "./set-voting-mode";
-import SetVotingTimeline from "./set-voting-timeline";
-import VotingModeButtonToolbar from "./voting-mode-button-toolbar";
+import RegisterShareholder from "./util/register-shareholder";
+import SetVotingMode from "./util/set-voting-mode";
+import SetVotingTimeline from "./util/set-voting-timeline";
+import VotingModeButtonToolbar from "./util/voting-mode-button-toolbar";
+import PublicInfo from "../public-info";
 import TransactionView from "../transaction/transaction-container";
 
 const ChairpersonView = ({
   address,
+  drizzle,
   drizzleState,
   duration,
+  isChairperson,
   onChangeHandler,
   onClickBeginVoting,
+  onClickDropdownItem,
   onClickEndVoting,
   onClickCountVotes,
   onClickReleaseWinner,
-  onDropdownItemClick,
-  onSetVotingModeButtonClick,
-  onSetVotingTimelineButtonClick,
-  onRegisterShareholderButtonClick,
+  onClickRegisterShareholder,
+  onClickSetVotingMode,
+  onClickSetVotingTimeline,
   sharesOwned,
   stackId,
   timeUnit
@@ -29,18 +32,18 @@ const ChairpersonView = ({
       <RegisterShareholder
         address={address}
         onChangeHandler={onChangeHandler}
-        onClickHandler={onRegisterShareholderButtonClick}
+        onClickHandler={onClickRegisterShareholder}
         sharesOwned={sharesOwned}
       />
       <SetVotingMode
-        onDropdownItemClick={onDropdownItemClick}
-        onSetVotingModeButtonClick={onSetVotingModeButtonClick}
+        onClickDropdownItem={onClickDropdownItem}
+        onSetVotingModeButtonClick={onClickSetVotingMode}
       />
       <SetVotingTimeline
         duration={duration}
         onChangeHandler={onChangeHandler}
-        onDropdownItemClick={onDropdownItemClick}
-        onSetVotingTimelineButtonClick={onSetVotingTimelineButtonClick}
+        onClickDropdownItem={onClickDropdownItem}
+        onSetVotingTimelineButtonClick={onClickSetVotingTimeline}
         timeUnit={timeUnit}
       />
       <VotingModeButtonToolbar
@@ -48,6 +51,11 @@ const ChairpersonView = ({
         onClickEndVoting={onClickEndVoting}
         onClickCountVotes={onClickCountVotes}
         onClickReleaseWinner={onClickReleaseWinner}
+      />
+      <PublicInfo
+        drizzle={drizzle}
+        drizzleState={drizzleState}
+        isChairperson={isChairperson}
       />
     </div>
   );
