@@ -1,9 +1,6 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import {PROPOSAL_INFO} from "./util/constants";
 
 const Proposals = () => {

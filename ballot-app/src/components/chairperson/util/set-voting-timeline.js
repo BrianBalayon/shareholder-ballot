@@ -19,7 +19,7 @@ const SetVotingTimeline = ({
                            }) => {
     return (
         <Container>
-            <InputGroup className="mb-3">
+            <InputGroup>
                 <InputGroup.Prepend>
                     <SubmitButton
                         onClickHandler={onSetVotingTimelineButtonClick}

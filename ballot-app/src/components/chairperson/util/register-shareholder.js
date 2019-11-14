@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-
 import InputGroup from "react-bootstrap/InputGroup";
 import {ButtonText, Key} from "./constants";
 import SubmitButton from "../../utils/input/submit-button";
@@ -15,7 +14,7 @@ const RegisterShareholderInput = ({
                                   }) => {
     return (
         <Container>
-            <InputGroup className="mb-3">
+            <InputGroup>
                 <InputGroup.Prepend>
                     <SubmitButton
                         onClickHandler={onClickHandler}
