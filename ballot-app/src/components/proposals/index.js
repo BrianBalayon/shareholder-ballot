@@ -4,32 +4,26 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { PROPOSAL_INFO } from "./util/constants";
+import {PROPOSAL_INFO} from "./util/constants";
 
 const Proposals = () => {
-  return (
-    <div>
-      <h3>Proposals</h3>
-      <Container>
-        <Row>
-          <Col xs={12}>
+    return (
+        <div>
+            <h3>Proposals</h3>
             <Accordion>
-              {PROPOSAL_INFO.map(({ description }, index) => (
-                <Card key={`proposal-${index}`}>
-                  <Accordion.Toggle as={Card.Header} eventKey={index}>
-                    Proposal #{index}
-                  </Accordion.Toggle>
-                  <Accordion.Collapse eventKey={index}>
-                    <Card.Body className="text-left">{description}</Card.Body>
-                  </Accordion.Collapse>
-                </Card>
-              ))}
+                {PROPOSAL_INFO.map(({description}, index) => (
+                    <Card key={`proposal-${index}`}>
+                        <Accordion.Toggle as={Card.Header} eventKey={index}>
+                            Proposal #{index}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey={index}>
+                            <Card.Body className="text-left">{description}</Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+                ))}
             </Accordion>
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default Proposals;
