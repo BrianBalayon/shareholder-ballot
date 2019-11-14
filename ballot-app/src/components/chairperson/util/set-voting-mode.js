@@ -10,19 +10,18 @@ const SetVotingMode = ({onClickDropdownItem, onSetVotingModeButtonClick}) => {
     return (
         <Container>
             <InputGroup>
-                <ButtonGroup>
+                <InputGroup.Prepend>
                     <SubmitButton
                         onClickHandler={onSetVotingModeButtonClick}
                         text={ButtonText.SET_VOTING_MODE}
                     />
-                    <DropdownMenu
-                        className="btn-group"
-                        dropdownItemInfo={DropdownItemInfo.VOTING_MODE}
-                        keyName={Key.VOTING_MODE}
-                        onClickDropdownItem={onClickDropdownItem}
-                        title={ButtonText.VOTING_MODE}
-                    />
-                </ButtonGroup>
+                </InputGroup.Prepend>
+                <DropdownMenu
+                    dropdownItemInfo={DropdownItemInfo.VOTING_MODE}
+                    keyName={Key.VOTING_MODE}
+                    onClickDropdownItem={onClickDropdownItem}
+                    title={ButtonText.VOTING_MODE}
+                />
             </InputGroup>
         </Container>
     );

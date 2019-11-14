@@ -22,6 +22,7 @@ const SetVotingTimeline = ({
             <InputGroup>
                 <InputGroup.Prepend>
                     <SubmitButton
+                        variant="outline-dark"
                         onClickHandler={onSetVotingTimelineButtonClick}
                         text={ButtonText.SET_VOTING_TIMELINE}
                     />
