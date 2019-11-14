@@ -6,6 +6,8 @@ import PhaseContainer from "../phase/phase-container";
 import Proposals from "../proposals";
 import ShareholderContainer from "../shareholder/shareholder-container";
 import WinnerContainer from "../winner/winner-container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default class App extends Component {
   state = {

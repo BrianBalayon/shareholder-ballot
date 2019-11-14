@@ -15,7 +15,7 @@ const PublicInfo = ({ drizzle, drizzleState, isChairperson }) => {
         <Row>
           <Col>
             <ListGroup variant="flush">
-              <ListGroup.Item active>Public Info</ListGroup.Item>
+              <h3>Public Information</h3>
               <VotingMode drizzle={drizzle} drizzleState={drizzleState} />
               {!isChairperson && (
                 <NumberRemainingVotes

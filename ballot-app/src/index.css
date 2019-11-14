@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
-.btn-group {
+.btn-group .alert {
   display: flex;
 }
+

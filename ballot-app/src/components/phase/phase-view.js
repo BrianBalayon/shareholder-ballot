@@ -10,7 +10,7 @@ const PhaseView = ({ stateName, variant }) => {
       <Row>
         <Col></Col>
         <Col xs={6}>
-          <Alert variant={variant}>PHASE: {stateName}</Alert>
+          <Alert variant={variant} ClassName="alert">PHASE: {stateName}</Alert>
         </Col>
         <Col></Col>
       </Row>

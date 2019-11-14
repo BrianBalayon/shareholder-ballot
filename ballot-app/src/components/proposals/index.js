@@ -12,7 +12,6 @@ const Proposals = () => {
       <h3>Proposals</h3>
       <Container>
         <Row>
-          <Col></Col>
           <Col xs={12}>
             <Accordion>
               {PROPOSAL_INFO.map(({ description }, index) => (
@@ -27,7 +26,6 @@ const Proposals = () => {
               ))}
             </Accordion>
           </Col>
-          <Col></Col>
         </Row>
       </Container>
     </div>
