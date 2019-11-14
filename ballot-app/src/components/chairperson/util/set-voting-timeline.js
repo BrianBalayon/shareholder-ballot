@@ -1,8 +1,6 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
 import {ButtonText, DropdownItemInfo, Key} from "./constants";
 import DropdownMenu from "../../utils/input/dropdown-menu";
 import TextBox from "../../utils/input/text-box";

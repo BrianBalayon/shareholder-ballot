@@ -1,7 +1,6 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
+
 import InputGroup from "react-bootstrap/InputGroup";
 import {ButtonText, Key} from "./constants";
 import SubmitButton from "../../utils/input/submit-button";

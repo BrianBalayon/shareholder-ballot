@@ -16,3 +16,7 @@ code {
   display: flex;
 }
 
+#load-bars {
+  justify-content: center;
+}
+
