@@ -1,5 +1,5 @@
 # Shareholder Ballot
-This project was created by Brian Balayon and Hans Bas for CSE 426: Blockchain App Development at the University at Buffalo, SUNY. <br />
+This project was created by Brian Balayon and Hans Bas for CSE 426: Blockchain App Development at the University at Buffalo, SUNY. <br /> <br />
 *More detailed information can be found in `submission-docs`*
 
 ## Abstract
@@ -18,17 +18,17 @@ Shareholders to a company have the right to vote in elections that deal with mat
 	- Import the Ganache accounts into MetaMask using the private keys / mnemonic.
 	- Reset the Ganache test chain and the accounts in MetaMask
 2. Compile & Deploy the Smart Contracts
-	- Run the following commands:
-	`cd ballot-contract/`
-	`truffle compile`
-	`truffle migrate --reset`
+	- Run the following commands:<br />
+	`cd ballot-contract/`<br />
+	`truffle compile`<br />
+	`truffle migrate --reset`<br />
 3. Set-Up Front-End Dependencies
-	- Run the following commands:
-	`cp -a build/contracts ../ballot-app/src/`
-	`cd ../ballot-app`
-	`npm install`
+	- Run the following commands:<br />
+	`cp -a build/contracts ../ballot-app/src/`<br />
+	`cd ../ballot-app`<br />
+	`npm install`<br />
 4. Start the Front-End
-	- Run the following command:
+	- Run the following command:<br />
 	`npm start`
 
 
