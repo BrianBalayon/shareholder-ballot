@@ -14,6 +14,7 @@ endif
 
 
 precommit:
+	find . -name sh-ballot.zip -print0 | xargs -0 rm -rf "{}"
 	git add -A
 	find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch
 
@@ -21,6 +22,7 @@ gittree:
 	git log --all --decorate --oneline --graph
 
 presubmit:
+	find . -name sh-ballot.zip -print0 | xargs -0 rm -rf "{}"
 	find ballot-app -type d -name "contracts" -print0 | xargs -0 rm -rf "{}"
 	find ballot-app -type d -name "node_modules" -print0 | xargs -0 rm -rf "{}"
 	find ballot-contract -type d -name "build" -print0 | xargs -0 rm -rf "{}"
