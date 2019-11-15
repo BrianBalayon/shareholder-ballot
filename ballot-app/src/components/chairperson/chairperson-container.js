@@ -76,24 +76,25 @@ export default class ChairpersonContainer extends Component {
     if (data) {
       isChairperson = data[VALUE];
     }
+    if (!isChairperson) {
+      return null;
+    }
     return (
-      isChairperson && (
-        <ChairpersonView
-          drizzle={drizzle}
-          drizzleState={drizzleState}
-          isChairperson={isChairperson}
-          onChangeHandler={this.textInputChangeHandler}
-          onClickBeginVoting={this.beginVoting}
-          onClickDropdownItem={this.dropdownItemClickHandler}
-          onClickEndVoting={this.endVoting}
-          onClickCountVotes={this.countVotes}
-          onClickReleaseWinner={this.releaseWinner}
-          onClickRegisterShareholder={this.registerShareholder}
-          onClickSetVotingMode={this.setVotingMode}
-          onClickSetVotingTimeline={this.setVotingTimeline}
-          {...this.state}
-        />
-      )
+      <ChairpersonView
+        drizzle={drizzle}
+        drizzleState={drizzleState}
+        isChairperson={isChairperson}
+        onChangeHandler={this.textInputChangeHandler}
+        onClickBeginVoting={this.beginVoting}
+        onClickDropdownItem={this.dropdownItemClickHandler}
+        onClickEndVoting={this.endVoting}
+        onClickCountVotes={this.countVotes}
+        onClickReleaseWinner={this.releaseWinner}
+        onClickRegisterShareholder={this.registerShareholder}
+        onClickSetVotingMode={this.setVotingMode}
+        onClickSetVotingTimeline={this.setVotingTimeline}
+        {...this.state}
+      />
     );
   }
 }

@@ -67,19 +67,20 @@ class ShareholderContainer extends Component {
     if (data) {
       isChairperson = data[VALUE];
     }
+    if (isChairperson) {
+      return null;
+    }
     return (
-      !isChairperson && (
-        <ShareholderView
-          drizzle={drizzle}
-          drizzleState={drizzleState}
-          isChairperson={isChairperson}
-          onChangeHandler={this.textInputChangeHandler}
-          onClickAllocateVotesByNumber={this.allocateVotesByNumber}
-          onClickAllocateVotesByPercentage={this.allocateVotesByPercentage}
-          onClickSingleVote={this.singleVote}
-          {...this.state}
-        />
-      )
+      <ShareholderView
+        drizzle={drizzle}
+        drizzleState={drizzleState}
+        isChairperson={isChairperson}
+        onChangeHandler={this.textInputChangeHandler}
+        onClickAllocateVotesByNumber={this.allocateVotesByNumber}
+        onClickAllocateVotesByPercentage={this.allocateVotesByPercentage}
+        onClickSingleVote={this.singleVote}
+        {...this.state}
+      />
     );
   }
 }
