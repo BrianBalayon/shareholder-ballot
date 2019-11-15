@@ -2,6 +2,7 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import InputGroup from "react-bootstrap/InputGroup";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const DropdownMenu = ({
                           dropdownItemInfo,

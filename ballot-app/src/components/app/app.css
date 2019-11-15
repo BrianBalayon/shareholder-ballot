@@ -13,9 +13,10 @@
 .container {
   padding: 0.25em;
   margin: auto;
+  display: block;
 }
 
-.btn-group .alert .to-span span {
-  display: flex;
+.btn-group .alert .to-span {
+  display: block;
 }
 

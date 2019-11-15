@@ -12,12 +12,14 @@ const VotingModeButtonToolbar = ({
                                  }) => {
     return (
         <Container>
-            <ButtonGroup>
-                <Button variant="outline-success" onClick={onClickBeginVoting}>Begin Voting</Button>
-                <Button variant="outline-danger" onClick={onClickEndVoting}>End Voting</Button>
-                <Button variant="outline-primary" onClick={onClickCountVotes}>Count Votes</Button>
-                <Button variant="outline-warning" onClick={onClickReleaseWinner}>Release Winner</Button>
-            </ButtonGroup>
+            <div className="d-flex flex-column">
+                <ButtonGroup>
+                    <Button variant="outline-success" onClick={onClickBeginVoting}>Begin Voting</Button>
+                    <Button variant="outline-danger" onClick={onClickEndVoting}>End Voting</Button>
+                    <Button variant="outline-primary" onClick={onClickCountVotes}>Count Votes</Button>
+                    <Button variant="outline-warning" onClick={onClickReleaseWinner}>Release Winner</Button>
+                </ButtonGroup>
+            </div>
         </Container>
     );
 };
