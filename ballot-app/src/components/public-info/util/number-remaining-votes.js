@@ -28,7 +28,7 @@ class NumberRemainingVotes extends Component {
     }
     return (
       <ListGroup.Item>
-        <strong># remaining votes:</strong> {numRemainingVotes}
+        Number of Remaining Votes: <strong> {numRemainingVotes} </strong>
       </ListGroup.Item>
     );
   }

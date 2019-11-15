@@ -32,7 +32,7 @@ class VotingDeadline extends Component {
     }
     return (
       <ListGroup.Item>
-        <strong>Voting Deadline:</strong> {votingDeadline}
+        Voting Deadline: <strong> {votingDeadline} </strong>
       </ListGroup.Item>
     );
   }

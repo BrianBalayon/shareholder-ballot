@@ -25,8 +25,7 @@ class VotingMode extends Component {
     }
     return (
       <ListGroup.Item>
-        <strong>Voting Mode:</strong>{" "}
-        {VOTING_MODE_INDEX_TO_STRING_ARRAY[Number(votingMode)]}
+        Voting Mode: <strong> {" "} {VOTING_MODE_INDEX_TO_STRING_ARRAY[Number(votingMode)]} </strong>
       </ListGroup.Item>
     );
   }

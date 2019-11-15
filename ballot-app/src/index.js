@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Drizzle, generateStore } from "drizzle";
-import "./index.css";
 import App from "./components/app";
 import * as serviceWorker from "./serviceWorker";
 import ShBallot from "./contracts/ShBallot.json";
