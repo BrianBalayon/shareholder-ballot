@@ -6,15 +6,9 @@ import Row from "react-bootstrap/Row";
 
 const TransactionView = ({ status, variant }) => {
   return (
-    <Container>
-      <Row>
-        <Col></Col>
-        <Col xs={6}>
-          <Alert variant={variant}>Transaction status: {status}</Alert>
-        </Col>
-        <Col></Col>
-      </Row>
-    </Container>
+      <Alert variant={variant}>
+          Transaction Status: <strong> {status} </strong>
+      </Alert>
   );
 };
 
