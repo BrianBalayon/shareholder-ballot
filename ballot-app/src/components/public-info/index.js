@@ -1,5 +1,4 @@
 import React from "react";
-import ListGroup from "react-bootstrap/ListGroup";
 import NumberProposals from "./util/number-proposals";
 import NumberRemainingVotes from "./util/number-remaining-votes";
 import VotingDeadline from "./util/voting-deadline";
