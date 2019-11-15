@@ -25,7 +25,7 @@ const ShareholderView = ({
     return (
         <div>
             <TransactionContainer drizzleState={drizzleState} stackId={stackId}/>
-            <h2>Shareholder</h2>
+            <h2> You are a <strong> Shareholder </strong> </h2>
             <Row>
                 <Col>
                     <h3>Actions You Can Make</h3>

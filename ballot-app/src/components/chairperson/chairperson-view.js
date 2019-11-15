@@ -30,9 +30,10 @@ const ChairpersonView = ({
     return (
         <div>
             <TransactionView drizzleState={drizzleState} stackId={stackId}/>
-            <h1>Chairperson</h1>
+            <h2>You are the <strong> Chairperson </strong> </h2>
             <Row>
                 <Col>
+                    <h3> Actions You Can Take </h3>
                     <RegisterShareholder
                         address={address}
                         onChangeHandler={onChangeHandler}

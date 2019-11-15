@@ -4,7 +4,6 @@ import {ButtonText, DropdownItemInfo, Key} from "./constants";
 import DropdownMenu from "../../utils/input/dropdown-menu";
 import SubmitButton from "../../utils/input/submit-button";
 import InputGroup from "react-bootstrap/InputGroup";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const SetVotingMode = ({onClickDropdownItem, onSetVotingModeButtonClick}) => {
     return (
