@@ -1,0 +1,102 @@
+.
+├── README.md
+├── ballot-app
+│   ├── README.md
+│   ├── js
+│   │   └── dist
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   └── src
+│       ├── components
+│       │   ├── app
+│       │   │   ├── app.css
+│       │   │   ├── app.test.js
+│       │   │   └── index.js
+│       │   ├── chairperson
+│       │   │   ├── chairperson-container.js
+│       │   │   ├── chairperson-view.js
+│       │   │   └── util
+│       │   │       ├── constants.js
+│       │   │       ├── register-shareholder.js
+│       │   │       ├── set-voting-mode.js
+│       │   │       ├── set-voting-timeline.js
+│       │   │       └── voting-mode-button-toolbar.js
+│       │   ├── loading
+│       │   │   └── index.js
+│       │   ├── phase
+│       │   │   ├── phase-container.js
+│       │   │   ├── phase-view.js
+│       │   │   └── util
+│       │   │       └── constants.js
+│       │   ├── proposals
+│       │   │   ├── index.js
+│       │   │   └── util
+│       │   │       └── constants.js
+│       │   ├── public-info
+│       │   │   ├── index.js
+│       │   │   └── util
+│       │   │       ├── constants.js
+│       │   │       ├── number-proposals.js
+│       │   │       ├── number-remaining-votes.js
+│       │   │       ├── voting-deadline.js
+│       │   │       └── voting-mode.js
+│       │   ├── shareholder
+│       │   │   ├── shareholder-container.js
+│       │   │   ├── shareholder-view.js
+│       │   │   └── util
+│       │   │       ├── allocate-votes-by-count.js
+│       │   │       ├── allocate-votes-by-percentage.js
+│       │   │       ├── constants.js
+│       │   │       ├── get-winner-button.js
+│       │   │       └── single-vote.js
+│       │   ├── transaction
+│       │   │   ├── transaction-container.js
+│       │   │   ├── transaction-view.js
+│       │   │   └── util
+│       │   │       └── constants.js
+│       │   ├── utils
+│       │   │   ├── constants
+│       │   │   │   ├── keys.js
+│       │   │   │   └── methods.js
+│       │   │   ├── helper-functions
+│       │   │   │   └── index.js
+│       │   │   └── input
+│       │   │       ├── dropdown-menu.js
+│       │   │       ├── index.js
+│       │   │       ├── submit-button.js
+│       │   │       └── text-box.js
+│       │   └── winner
+│       │       ├── winner-container.js
+│       │       └── winner-view.js
+│       ├── index.css
+│       ├── index.js
+│       └── serviceWorker.js
+├── ballot-contract
+│   ├── contracts
+│   │   ├── Migrations.sol
+│   │   └── SHBallot.sol
+│   ├── migrations
+│   │   ├── 1_initial_migration.js
+│   │   └── 2_deploy_contracts.js
+│   ├── test
+│   │   ├── ShBallot.js
+│   │   └── exceptions.js
+│   └── truffle-config.js
+├── makefile
+└── submission-docs
+    ├── README.pdf
+    ├── architecture-diagram.pdf
+    ├── contract-diagram.pdf
+    ├── directory-structure.txt
+    ├── problem-statement.pdf
+    ├── sequence-diagram.pdf
+    └── use-case-diagram.pdf
+
+30 directories, 69 files

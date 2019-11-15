@@ -1,0 +1,6 @@
+.idea/
+.vscode
+ballot-contract/build/
+ballot-app/src/contracts/
+sh-ballot.zip
+

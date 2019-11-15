@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+  margin: auto;
+  padding: 2.5%;
+}
+
+.React-Loader .to-center {
+  display: block;
+  margin: auto;
+  align-content: center;
+}
+
+.container {
+  padding: 0.25em;
+  margin: auto;
+  display: block;
+}
+
+.btn-group .alert .to-span {
+  display: block;
+}
+
