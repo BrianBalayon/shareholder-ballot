@@ -25,7 +25,7 @@ class NumberProposals extends Component {
 
     return (
       <ListGroup.Item>
-        <strong># of Proposals:</strong> {numberProposals}
+        Number of Proposals: <strong> {numberProposals} </strong>
       </ListGroup.Item>
     );
   }

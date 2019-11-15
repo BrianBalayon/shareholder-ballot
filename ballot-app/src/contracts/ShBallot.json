@@ -18940,12 +18940,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xf2A02E73D03203f21ec2db635cED701a7A3e850c",
-      "transactionHash": "0x66ddb875d6f0e8271704889c825dd697c8df1447701711168c6d93fc8d49eeed"
+      "address": "0xF6ACeAC0B4039d0d94B5C1C253712D07032e46eE",
+      "transactionHash": "0xf6d81ab9a330bddd9abe54eea96717de24aa36025a50ff1ed28b6cb302e67de2"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-14T22:35:55.267Z",
+  "updatedAt": "2019-11-15T00:14:32.214Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
